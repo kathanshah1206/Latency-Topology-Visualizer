@@ -8,7 +8,6 @@ Steps to get started :-
 2) Run this command in vs-code shell (to make .next folder for running project) - npm run build
 3) After successful build, Run - npm run start
 
-Note :- If step 2 fails then skip step 2 and step 3, and run the command - npm run dev .
-(then run this in your browser)
+Note :- If step 2 fails then skip step 2 and step 3, and run the command - npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
