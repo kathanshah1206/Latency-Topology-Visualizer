@@ -53,7 +53,7 @@ export default function Home() {
                     height: "200px",
                     borderRadius: "16px",
                     overflow: "hidden",
-                    boxShadow: "0 8px 16px rgba(0,0,0,0.5)",
+                    boxShadow: "0 10px 16px rgba(0,0,0,0.5)",
                   }}
                 >
                   <div className="card-body d-flex align-items-end p-3 card-body-overlay">
