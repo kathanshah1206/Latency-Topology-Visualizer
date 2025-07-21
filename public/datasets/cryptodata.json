@@ -1,0 +1,108 @@
+{
+  "exchanges": [
+    {
+      "name": "Binance",
+      "servers": [
+        { "location": "Tokyo, Japan", "lat": 35.6895, "lon": 139.6917, "type": "Primary Matching Engine" },
+        { "location": "Frankfurt, Germany", "lat": 50.1109, "lon": 8.6821, "type": "Backup / API Node" }
+      ]
+    },
+    {
+      "name": "Coinbase",
+      "servers": [
+        { "location": "Ashburn, Virginia, USA", "lat": 39.0438, "lon": -77.4874, "type": "Primary Data Center" },
+        { "location": "San Francisco, California, USA", "lat": 37.7749, "lon": -122.4194, "type": "Corporate HQ" }
+      ]
+    },
+    {
+      "name": "Kraken",
+      "servers": [
+        { "location": "Ashburn, Virginia, USA", "lat": 39.0438, "lon": -77.4874, "type": "Primary Servers" },
+        { "location": "Frankfurt, Germany", "lat": 50.1109, "lon": 8.6821, "type": "European Infrastructure" }
+      ]
+    },
+    {
+      "name": "Bybit",
+      "servers": [
+        { "location": "Singapore", "lat": 1.3521, "lon": 103.8198, "type": "Primary Infrastructure" },
+        { "location": "Tokyo, Japan", "lat": 35.6895, "lon": 139.6917, "type": "Matching Engine" }
+      ]
+    },
+    {
+      "name": "OKX",
+      "servers": [
+        { "location": "Hong Kong", "lat": 22.3193, "lon": 114.1694, "type": "Primary" },
+        { "location": "Singapore", "lat": 1.3521, "lon": 103.8198, "type": "Backup / API" }
+      ]
+    },
+    {
+      "name": "Deribit",
+      "servers": [
+        { "location": "London, UK", "lat": 51.5074, "lon": -0.1278, "type": "Primary Exchange" },
+        { "location": "Amsterdam, Netherlands", "lat": 52.3676, "lon": 4.9041, "type": "Failover / API" }
+      ]
+    },
+    {
+      "name": "KuCoin",
+      "servers": [
+        { "location": "Singapore", "lat": 1.3521, "lon": 103.8198, "type": "Main" },
+        { "location": "Frankfurt, Germany", "lat": 50.1109, "lon": 8.6821, "type": "Failover" }
+      ]
+    },
+    {
+      "name": "Bitfinex",
+      "servers": [
+        { "location": "London, UK", "lat": 51.5074, "lon": -0.1278, "type": "Primary" },
+        { "location": "Frankfurt, Germany", "lat": 50.1109, "lon": 8.6821, "type": "Secondary" }
+      ]
+    },
+    {
+      "name": "Huobi (HTX)",
+      "servers": [
+        { "location": "Singapore", "lat": 1.3521, "lon": 103.8198, "type": "Primary" },
+        { "location": "Hong Kong", "lat": 22.3193, "lon": 114.1694, "type": "Backup" }
+      ]
+    },
+    {
+      "name": "Gate.io",
+      "servers": [
+        { "location": "Singapore", "lat": 1.3521, "lon": 103.8198, "type": "Main Exchange Server" },
+        { "location": "Seoul, South Korea", "lat": 37.5665, "lon": 126.9780, "type": "Asia Node" }
+      ]
+    },
+    {
+      "name": "Bitstamp",
+      "servers": [
+        { "location": "London, UK", "lat": 51.5074, "lon": -0.1278, "type": "Main Trading Server" },
+        { "location": "Luxembourg", "lat": 49.6117, "lon": 6.1319, "type": "EU Operations" }
+      ]
+    },
+    {
+      "name": "Gemini",
+      "servers": [
+        { "location": "New York, USA", "lat": 40.7128, "lon": -74.0060, "type": "Primary Infrastructure" },
+        { "location": "Chicago, USA", "lat": 41.8781, "lon": -87.6298, "type": "Backup Infrastructure" }
+      ]
+    },
+    {
+      "name": "MEXC Global",
+      "servers": [
+        { "location": "Singapore", "lat": 1.3521, "lon": 103.8198, "type": "Primary Server" },
+        { "location": "Tokyo, Japan", "lat": 35.6895, "lon": 139.6917, "type": "Asia-Pacific Node" }
+      ]
+    },
+    {
+      "name": "Poloniex",
+      "servers": [
+        { "location": "Chicago, USA", "lat": 41.8781, "lon": -87.6298, "type": "Main Server" }
+      ]
+    },
+    {
+      "name": "Bitget",
+      "servers": [
+        { "location": "Singapore", "lat": 1.3521, "lon": 103.8198, "type": "Asia-Pacific Center" },
+        { "location": "Frankfurt, Germany", "lat": 50.1109, "lon": 8.6821, "type": "EU Node" }
+      ]
+    }
+  ]
+}
