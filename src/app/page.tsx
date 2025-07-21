@@ -21,7 +21,7 @@ export default function Home() {
     {
       title: "Historical Trend",
       href: "/historicaltrend",
-      image: "/datasets/starfield.jpg",
+      image: "/datasets/preview5.jpeg",
     },
     {
       title: "Cloud Provider Trend",
@@ -42,15 +42,15 @@ export default function Home() {
         </h1>
         <div className="row  g-4">
           {cards.map((card: any, idx: any) => (
-            <div key={idx} className="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div key={idx} className=" col-12 col-sm-6 col-md-4 col-lg-3">
               <Link href={card.href} className="text-decoration-none">
                 <div
-                  className="card text-white bg-dark card-overlay"
+                  className="kale card text-white bg-dark card-overlay"
                   style={{
                     backgroundImage: `url(${card.image})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    height: "200px",
+                    height: "300px",
                     borderRadius: "16px",
                     overflow: "hidden",
                     boxShadow: "0 10px 16px rgba(0,0,0,0.5)",
