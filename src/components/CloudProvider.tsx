@@ -3,17 +3,14 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-// Dynamically import react-globe.gl
 const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
 
-// Define provider colors
 const cloudColors: Record<string, string> = {
   AWS: "#FF9900",
   GCP: "#4285F4",
   Azure: "#0ef012ff",
 };
 
-// Define TypeScript interface for GeoJSON region features
 interface RegionFeature {
   type: "Feature";
   properties: {
@@ -24,7 +21,7 @@ interface RegionFeature {
   };
   geometry: {
     type: string;
-    coordinates: any; // You can further type this if needed
+    coordinates: any;
   };
 }
 
@@ -38,7 +35,6 @@ export default function CloudProvider() {
     Azure: true,
   });
 
-  // Toggle checkbox state
   const handleCheckboxChange = (provider: string) => {
     setSelectedProviders((prev) => ({
       ...prev,
@@ -46,12 +42,10 @@ export default function CloudProvider() {
     }));
   };
 
-  // Filter regions based on selected providers
   const filteredRegions = regions.filter(
     (region) => selectedProviders[region.properties.provider]
   );
 
-  // Fetch GeoJSON
   useEffect(() => {
     fetch("/datasets/cloud_regions.geojson")
       .then((res) => res.json())
@@ -80,7 +74,6 @@ export default function CloudProvider() {
         `}
       />
 
-      {/* Legend UI */}
       <div
         style={{
           position: "absolute",

@@ -95,7 +95,6 @@ const LatencyGraph: React.FC = () => {
         await Promise.all([
           preload(`${ROOT_PATH}/starfield.jpg`),
           preload(`${ROOT_PATH}/bathymetry_bw_composite_4k.jpg`),
-          // preload(`${ROOT_PATH}/lake.hdr`), // Note: .hdr may not load like normal images
         ]);
         const chart = echarts.init(chartRef.current);
 

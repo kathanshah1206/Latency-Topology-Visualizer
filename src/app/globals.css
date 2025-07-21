@@ -53,6 +53,21 @@ a {
   overflow-x: hidden;
 }
 
+.legend-box{
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  background: #1a1a1aee;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 10px;
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 10;
+  width: 280px;
+}
+
 .video-bg {
   position: absolute;
   top: 50%;
