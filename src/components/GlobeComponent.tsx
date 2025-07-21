@@ -17,38 +17,13 @@ interface GeoJsonFeature {
   };
 }
 
-// Importing 'react-globe.gl' dynamically to ensure it runs client-side only
 const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
 
 const GlobeComponent = () => {
-  //   const apiKey = "0c5fccae-52e1-413d-835c-ceb916d0bdb9";
-  //   const url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/map";
-
-  //   fetch(`${url}`, {
-  //     method: "GET",
-  //     headers: {
-  //       Accepts: "application/json",
-  //       "X-CMC_PRO_API_KEY": apiKey,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error(`HTTP error! Status: ${response.status}`);
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log("Cryptocurrencies:", data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data:", error);
-  //     });
-
   const [places, setPlaces] = useState<GeoJsonFeature[]>([]);
   const globeEl = useRef<any>(null);
 
   useEffect(() => {
-    // Load the GeoJSON from public folder
     fetch("/datasets/ne_110m_populated_places_simple.geojson")
       .then((res) => res.json())
       .then((data) => {

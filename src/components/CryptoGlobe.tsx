@@ -3,17 +3,14 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-// Dynamic import to prevent SSR
 const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
 
-// Define interface for GeoJSON feature properties
 interface CryptoRegionProperties {
   ADMIN: string;
   ISO_A2: string;
   POP_EST: string;
 }
 
-// Define interface for each GeoJSON Feature
 interface CryptoRegion {
   type: "Feature";
   properties: CryptoRegionProperties;
@@ -38,6 +35,7 @@ export default function CryptoGlobe() {
   };
 
   const [places, setPlaces] = useState<CryptoRegion[]>([]);
+  const [showLegend, setShowLegend] = useState(false); // for mobile toggle
 
   useEffect(() => {
     fetch("/datasets/modified_crypto_exchange_countries.geojson")
@@ -48,28 +46,14 @@ export default function CryptoGlobe() {
   }, []);
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
+      {/* Globe */}
       <Globe
         globeImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-dark.jpg"
         hexPolygonsData={places}
         hexPolygonResolution={3}
         hexPolygonMargin={0.3}
         hexPolygonUseDots={true}
-        // hexPolygonColor={({
-        //   properties,
-        // }: {
-        //   properties: CryptoRegionProperties;
-        // }) => cryptoColors[properties.POP_EST] || "#999999"}
-        // hexPolygonLabel={({
-        //   properties,
-        // }: {
-        //   properties: CryptoRegionProperties;
-        // }) => `
-        //   <div>
-        //     <div><b>${properties.ADMIN} (${properties.ISO_A2})</b></div>
-        //     <div>Major Crypto Exchange: <i>${properties.POP_EST}</i></div>
-        //   </div>
-        // `}
         hexPolygonColor={(d) => {
           const props = (d as any).properties as CryptoRegionProperties;
           return cryptoColors[props?.POP_EST] || "#999999";
@@ -77,29 +61,51 @@ export default function CryptoGlobe() {
         hexPolygonLabel={(d) => {
           const props = (d as any).properties as CryptoRegionProperties;
           return `
-    <div>
-      <div><b>${props.ADMIN} (${props.ISO_A2})</b></div>
-      <div>Major Crypto: <i>${props.POP_EST.split("-")[0]}</i></div>
-      <div>Exchange location: <i>${props.POP_EST.split("-")[1]}</i></div>
-    </div>
-  `;
+            <div>
+              <div><b>${props.ADMIN} (${props.ISO_A2})</b></div>
+              <div>Major Crypto: <i>${props.POP_EST.split("-")[0]}</i></div>
+              <div>Exchange location: <i>${
+                props.POP_EST.split("-")[1]
+              }</i></div>
+            </div>
+          `;
         }}
       />
-      <div
+
+      {/* Toggle Button for Small Screens */}
+      <button
+        className="btn btn-warning d-lg-none text-center"
         style={{
           position: "absolute",
           top: 20,
+          left: 20,
+          zIndex: 10,
+          width: "200px",
+        }}
+        onClick={() => setShowLegend(!showLegend)}
+      >
+        {showLegend ? "Hide Legend" : "Show Legend"}
+      </button>
+
+      {/* Legend */}
+      <div
+        className={`legend-box ${showLegend ? "d-block" : "d-none"} d-lg-block`}
+        style={{
+          position: "absolute",
+          top: 70,
           left: 20,
           backgroundColor: "#1a1a1aee",
           padding: "1rem",
           borderRadius: "0.5rem",
           color: "#fff",
           fontSize: "0.9rem",
-          maxHeight: "80vh",
+          maxHeight: "70vh",
           overflowY: "auto",
+          zIndex: 5,
+          width: "280px",
         }}
       >
-        <h4 style={{ marginTop: 0 }}>Crypto Exchange Legend</h4>
+        <h5 style={{ marginTop: 0 }}>Crypto Exchange Legend</h5>
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {Object.entries(cryptoColors).map(([exchange, color]) => (
             <li
