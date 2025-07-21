@@ -95,6 +95,9 @@ const HistoricalTrend: React.FC = () => {
       title: {
         text: `Latency Trends (${selectedPair})`,
         left: "center",
+        textStyle: {
+          fontSize: 16,
+        },
       },
       tooltip: {
         trigger: "axis",
@@ -109,6 +112,8 @@ const HistoricalTrend: React.FC = () => {
       xAxis: {
         type: "time",
         axisLabel: {
+          fontSize: window.innerWidth < 768 ? 8 : 12,
+          rotate: window.innerWidth < 768 ? 45 : 0,
           formatter: (value: number) => {
             const date = new Date(value);
             return timeRange === "1h"
@@ -122,6 +127,9 @@ const HistoricalTrend: React.FC = () => {
         name: "Latency (ms)",
         min: "dataMin",
         max: "dataMax",
+        axisLabel: {
+          fontSize: window.innerWidth < 768 ? 10 : 12,
+        },
       },
       series: [
         {
@@ -129,10 +137,17 @@ const HistoricalTrend: React.FC = () => {
           data: latencyData.map((d) => [d.time, d.latency]),
           showSymbol: false,
           smooth: true,
-          areaStyle: {},
+          areaStyle: {
+            opacity: 0.2,
+            color: "#ff0000c9",
+          },
+          lineStyle: {
+            color: "#ff0000ff",
+            width: 2,
+          },
         },
       ],
-      grid: { left: 50, right: 20, bottom: 50, top: 60 },
+      grid: { left: 40, right: 20, bottom: 50, top: 60 },
       toolbox: {
         feature: {
           saveAsImage: {},
@@ -150,36 +165,57 @@ const HistoricalTrend: React.FC = () => {
   }, [latencyData, selectedPair, timeRange]);
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <h2>📈 Historical Latency Trends</h2>
-      <div style={{ marginBottom: "1rem", display: "flex", gap: "1rem" }}>
-        <select
-          value={selectedPair}
-          onChange={(e) => setSelectedPair(e.target.value)}
-        >
-          {MOCK_SERVER_PAIRS.map((pair) => (
-            <option key={pair.value} value={pair.value}>
-              {pair.label}
-            </option>
-          ))}
-        </select>
+    <div className="video-bg-wrapper2">
+      <video autoPlay muted loop playsInline className="video-bg">
+        <source src="/datasets/bluehd.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div className="container py-4">
+        <div className="card shadow rounded-4">
+          <div className="card-body">
+            <h3 className="card-title text-center mb-4">
+              📈 Historical Latency Trends
+            </h3>
 
-        <select
-          value={timeRange}
-          onChange={(e) => setTimeRange(e.target.value)}
-        >
-          {TIME_RANGES.map((range) => (
-            <option key={range.value} value={range.value}>
-              {range.label}
-            </option>
-          ))}
-        </select>
+            <div className="row g-3 mb-3">
+              <div className="col-md-6">
+                <select
+                  value={selectedPair}
+                  onChange={(e) => setSelectedPair(e.target.value)}
+                  className="form-select form-select-lg"
+                >
+                  {MOCK_SERVER_PAIRS.map((pair) => (
+                    <option key={pair.value} value={pair.value}>
+                      {pair.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-md-6">
+                <select
+                  value={timeRange}
+                  onChange={(e) => setTimeRange(e.target.value)}
+                  className="form-select form-select-lg"
+                >
+                  {TIME_RANGES.map((range) => (
+                    <option key={range.value} value={range.value}>
+                      {range.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div
+              ref={chartRef}
+              className="w-100"
+              style={{
+                height: "450px",
+              }}
+            />
+          </div>
+        </div>
       </div>
-
-      <div
-        ref={chartRef}
-        style={{ width: "100%", height: "400px", border: "1px solid #ccc" }}
-      />
     </div>
   );
 };
