@@ -1,7 +1,7 @@
 "use client";
 
+import { useState } from "react";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 
 const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
 
@@ -25,8 +25,11 @@ interface RegionFeature {
   };
 }
 
-export default function CloudProvider() {
-  const [regions, setRegions] = useState<RegionFeature[]>([]);
+export default function CloudProvider({
+  initialRegions,
+}: {
+  initialRegions: RegionFeature[];
+}) {
   const [selectedProviders, setSelectedProviders] = useState<
     Record<string, boolean>
   >({
@@ -42,17 +45,9 @@ export default function CloudProvider() {
     }));
   };
 
-  const filteredRegions = regions.filter(
+  const filteredRegions = initialRegions.filter(
     (region) => selectedProviders[region.properties.provider]
   );
-
-  useEffect(() => {
-    fetch("/datasets/cloud_regions.geojson")
-      .then((res) => res.json())
-      .then((data) => {
-        setRegions(data?.features || []);
-      });
-  }, []);
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>

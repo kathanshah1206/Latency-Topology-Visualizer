@@ -38,6 +38,7 @@ a {
 .video-bg-wrapper {
   position: relative;
   width: 100%;
+  min-height: 100vh;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -88,8 +89,23 @@ a {
   padding-top: 20vh;
 }
 
+.search-drop{
+  position: absolute;
+  top: 65px;
+  right: 30px;
+  width: min(280px,80vw);
+}
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+}
+@media (max-width:991px) {
+  .search-drop{
+  position: absolute;
+  top: 65px;
+  left: 20px;
+  right: 0;
+  width: min(280px,80vw);
+}
 }

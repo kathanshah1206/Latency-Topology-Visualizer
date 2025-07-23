@@ -161,15 +161,7 @@ export default function CryptoGlobe() {
         labelResolution={100}
       />
 
-      <form
-        className="d-flex flex-column align-items-stretch"
-        style={{
-          position: "absolute",
-          top: 65,
-          left: 20,
-          width: "min(280px, 80vw)",
-        }}
-      >
+      <form className="d-flex search-drop flex-column align-items-stretch">
         <div className="input-group">
           <input
             type="text"
