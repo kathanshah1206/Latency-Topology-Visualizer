@@ -10,4 +10,7 @@ Steps to get started :-
 
 Note :- If step 2 fails then skip step 2 and step 3, and run the command - npm run dev
 
+IMPORTANT :- https://github.com/kathanshah1206/node-server
+this is the api call or node server where you can find the data which I used in the app
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
