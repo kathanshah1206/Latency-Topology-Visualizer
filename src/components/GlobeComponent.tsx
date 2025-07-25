@@ -1,7 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
+
+const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
+
 interface GeoJsonFeature {
   type: "Feature";
   properties: {
@@ -17,19 +20,12 @@ interface GeoJsonFeature {
   };
 }
 
-const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
+interface Props {
+  initialPlaces: GeoJsonFeature[];
+}
 
-const GlobeComponent = () => {
-  const [places, setPlaces] = useState<GeoJsonFeature[]>([]);
+const GlobeComponent = ({ initialPlaces }: Props) => {
   const globeEl = useRef<any>(null);
-
-  useEffect(() => {
-    fetch("/datasets/ne_110m_populated_places_simple.geojson")
-      .then((res) => res.json())
-      .then((data) => {
-        setPlaces(data.features as GeoJsonFeature[]);
-      });
-  }, []);
 
   return (
     <div>
@@ -37,7 +33,7 @@ const GlobeComponent = () => {
         ref={globeEl}
         globeImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-night.jpg"
         backgroundImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/night-sky.png"
-        labelsData={places}
+        labelsData={initialPlaces}
         labelLat={(d) => (d as GeoJsonFeature).properties.latitude}
         labelLng={(d) => (d as GeoJsonFeature).properties.longitude}
         labelText={(d) => (d as GeoJsonFeature).properties.name}

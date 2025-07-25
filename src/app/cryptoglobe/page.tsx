@@ -1,9 +1,9 @@
-import CryptoGlobe from "@/components/CryptoGlobe";
+import { CryptoGlobePage } from "../_providers/page";
 
 export default function CryptoData() {
   return (
     <div>
-      <CryptoGlobe />
+      <CryptoGlobePage />
     </div>
   );
 }

@@ -27,7 +27,12 @@ interface SearchCity {
   longitude: number;
 }
 
-export default function CryptoGlobe() {
+interface Props {
+  initialRegions: CryptoRegion[];
+  initialCities: SearchCity[];
+}
+
+export default function CryptoGlobe({ initialRegions, initialCities }: Props) {
   const cryptoColors: Record<string, string> = {
     "Binance - Tokyo": "#FF5733",
     "Coinbase - San Francisco": "#33A1FF",
@@ -41,30 +46,14 @@ export default function CryptoGlobe() {
     "Deribit - Amsterdam": "#A5FF33",
   };
 
-  const [places, setPlaces] = useState<CryptoRegion[]>([]);
-  const [cities, setCities] = useState<SearchCity[]>([]);
+  const [places, setPlaces] = useState<CryptoRegion[]>(initialRegions);
+  const [cities, setCities] = useState<SearchCity[]>(initialCities);
   const [showLegend, setShowLegend] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [activeSuggestionIdx, setActiveSuggestionIdx] = useState<number>(-1);
 
   const globeRef = useRef<any>(null);
-
-  useEffect(() => {
-    fetch("/datasets/modified_crypto_exchange_countries.geojson")
-      .then((res) => res.json())
-      .then((data) => setPlaces(data?.features || []))
-      .catch((err) =>
-        console.error("Failed to load crypto exchange geojson:", err)
-      );
-  }, []);
-
-  useEffect(() => {
-    fetch("/datasets/searchable_cities.json")
-      .then((res) => res.json())
-      .then((data: SearchCity[]) => setCities(data || []))
-      .catch((err) => console.error("Failed to load searchable cities:", err));
-  }, []);
 
   const suggestions = useMemo(() => {
     if (!searchTerm.trim()) return [];
@@ -76,7 +65,6 @@ export default function CryptoGlobe() {
       return city.includes(term) || country.includes(term);
     });
 
-    // Rank: name startsWith gets priority
     matches.sort((a, b) => {
       const aName = a.name.toLowerCase();
       const bName = b.name.toLowerCase();
@@ -96,7 +84,7 @@ export default function CryptoGlobe() {
   const flyTo = (city: SearchCity, altitude = 1.2) => {
     globeRef.current?.pointOfView(
       { lat: city.latitude, lng: city.longitude, altitude },
-      1500 // ms
+      1500
     );
     setSelectedCityLabel(city);
   };
@@ -126,7 +114,6 @@ export default function CryptoGlobe() {
 
   return (
     <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
-      {/* Globe */}
       <Globe
         ref={globeRef}
         globeImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-dark.jpg"
@@ -161,6 +148,7 @@ export default function CryptoGlobe() {
         labelResolution={100}
       />
 
+      {/* Search Input */}
       <form className="d-flex search-drop flex-column align-items-stretch">
         <div className="input-group">
           <input
@@ -174,10 +162,9 @@ export default function CryptoGlobe() {
             onKeyDown={handleSearchKeyDown}
             className="form-control"
             aria-label="Search city or country"
+            style={{ width: "280px" }}
           />
         </div>
-
-        {/* Suggestion dropdown */}
         {searchTerm.trim() && suggestions.length > 0 && (
           <ul
             className="list-group mt-1"
@@ -208,7 +195,6 @@ export default function CryptoGlobe() {
         )}
       </form>
 
-      {/* Toggle Button for Small Screens */}
       <button
         className="btn btn-warning d-lg-none text-center"
         style={{
@@ -223,7 +209,6 @@ export default function CryptoGlobe() {
         {showLegend ? "Hide Legend" : "Show Legend"}
       </button>
 
-      {/* Legend */}
       <div
         className={`legend-box ${showLegend ? "d-block" : "d-none"} d-lg-block`}
       >
