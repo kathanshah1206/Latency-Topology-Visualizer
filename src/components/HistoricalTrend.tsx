@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as echarts from "echarts";
 
-// Type for latency data
 interface LatencyPoint {
   time: number;
   latency: number;
@@ -23,7 +22,6 @@ const TIME_RANGES = [
   { label: "Last 30 Days", value: "30d" },
 ];
 
-// Mock latency data generator
 const generateMockLatencyData = (
   range: string,
   pairKey: string

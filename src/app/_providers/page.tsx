@@ -1,5 +1,3 @@
-// app/cloud-provider/page.tsx
-
 import CloudProvider from "@/components/CloudProvider";
 import CryptoGlobe from "@/components/CryptoGlobe";
 import GlobeComponent from "@/components/GlobeComponent";
@@ -22,7 +20,6 @@ async function CloudProviderPagex() {
 
   const cloudData = cloudRes.ok ? await cloudRes.json() : null;
 
-  // Load local geojson file
   const geojsonRaw = await readFile(GEOJSON_LOCAL_PATH, "utf-8");
   const geojsonData = JSON.parse(geojsonRaw);
 
@@ -48,7 +45,6 @@ async function CryptoGlobePage() {
     console.error("API fetch error:", error);
   }
 
-  // If API failed, fallback to local files
   if (!geojsonData?.features?.length) {
     try {
       const geojsonRaw = await readFile(
